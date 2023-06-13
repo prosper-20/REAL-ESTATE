@@ -36,7 +36,7 @@ class PropertyTpe(models.Model):
     slug = models.SlugField()
 
     class Meta:
-        verbose_name_plural = "Home Types"
+        verbose_name_plural = "Property Types"
 
     def __str__(self):
         return self.name

@@ -25,7 +25,3 @@ class PropertyAdmin(admin.ModelAdmin):
     list_display = ["title", "address", "city", "price"]
     prepopulated_fields = {'slug': ('title',)}
 
-
-
-
-# Register your models here.
