@@ -35,6 +35,7 @@ class UserManager(BaseUserManager):
             password=password,
         )
         user.staff = True
+        user.is_active = True
         user.save(using=self._db)
         return user
 
@@ -50,6 +51,7 @@ class UserManager(BaseUserManager):
         )
         user.staff = True
         user.admin = True
+        user.is_active = True
         user.save(using=self._db)
         return user
 
