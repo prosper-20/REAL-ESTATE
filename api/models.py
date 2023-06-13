@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import User
-
+import uuid
 
 
 HOME_TYPE_CHOICES = (
@@ -44,6 +44,7 @@ class PropertyTpe(models.Model):
 
 
 class Property(models.Model):
+    id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
     title = models.CharField(max_length=100)
     address = models.TextField()
     city = models.ForeignKey(City, on_delete=models.CASCADE)

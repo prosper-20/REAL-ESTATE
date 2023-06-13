@@ -22,6 +22,9 @@ class HomeTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Property)
 class PropertyAdmin(admin.ModelAdmin):
-    list_display = ["title", "address", "city", "price"]
+    list_display = ["title", "address", "city", "price", "agent"]
     prepopulated_fields = {'slug': ('title',)}
+    list_editable = ["price"]
+    search_fields = ["title", "city__name", "agent__username"]
+    list_filter = ["type", "agent"]
 
