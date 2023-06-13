@@ -14,6 +14,9 @@ class City(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField()
 
+    class Meta:
+        verbose_name_plural = "Cities"
+
     def __str__(self):
         return self.name
     
@@ -22,12 +25,18 @@ class State(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField()
 
+    class Meta:
+        verbose_name_plural = "States"
+
     def __str__(self):
         return self.name
     
-class HomeType(models.Model):
+class PropertyTpe(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField()
+
+    class Meta:
+        verbose_name_plural = "Home Types"
 
     def __str__(self):
         return self.name
@@ -41,11 +50,18 @@ class Property(models.Model):
     state  = models.ForeignKey(State, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=20, decimal_places=2)
     sale_type = models.CharField(choices=HOME_TYPE_CHOICES, max_length=10)
-    home_type = models.ForeignKey(HomeType, on_delete=models.CASCADE)
+    type = models.ForeignKey(PropertyTpe, on_delete=models.CASCADE)
     bedrooms = models.IntegerField()
     sqft = models.IntegerField()
     picture = models.ImageField(upload_to="house_images", blank=True, null=True)
     slug = models.SlugField()
     agent = models.ForeignKey(User, on_delete=models.CASCADE)
 
+
+    class Meta:
+        verbose_name_plural = "Properties"
+
+    def __str__(self):
+        return self.title
+    
 
