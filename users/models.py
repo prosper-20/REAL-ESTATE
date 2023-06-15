@@ -18,6 +18,7 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=254)
     first_name = models.CharField(verbose_name=_("First Name"), max_length=50)
     is_active = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
     is_agent = models.BooleanField(default=False)
     staff = models.BooleanField(default=False) # a admin user; non super-user
     admin = models.BooleanField(default=False) # a superuser

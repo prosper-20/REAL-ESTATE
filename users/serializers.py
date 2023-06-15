@@ -25,6 +25,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"Response": "Both passwords must match"})
         
         user.set_password(password)
-        user.is_active = True
+        # user.is_active = True
         user.save()
         return user
