@@ -20,6 +20,13 @@ class ApiPropertyDetailPage(APIView):
     
     def put(self, request, slug, id):
         property = Property.objects.get(slug=slug, id=id)
+        print(property.agent)
+        print(request.user)
+        if request.user != property.agent:
+            return Response({"Access Denied": "You do not have the right to edit this property"})
+        elif request.user.is_agent == False:
+            return Response({"Error": "Only agents can edit properties"})
+        
         serializer = PropertySerializer(property, data=request.data, partial=True)
         serializer.is_valid()
         serializer.save()
@@ -33,5 +40,5 @@ class ApiPropertyDetailPage(APIView):
         property.delete()
         return Response(
             {"Success": "House deleted successfuly!"},
-            status=status.HTTP_204_NCO
+            status=status.HTTP_NO_CONTENT
         )
