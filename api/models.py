@@ -49,7 +49,7 @@ class Property(models.Model):
     address = models.TextField()
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     state  = models.ForeignKey(State, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=20, decimal_places=2)
+    price = models.DecimalField(max_digits=20, decimal_places=0)
     sale_type = models.CharField(choices=HOME_TYPE_CHOICES, max_length=10)
     type = models.ForeignKey(PropertyTpe, on_delete=models.CASCADE)
     bedrooms = models.IntegerField()
