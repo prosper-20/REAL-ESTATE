@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView
 from .models import Property, Favourite
-from .serializers import PropertySerializer, FavouriteSerializer, GetFavouriteSerializer
+from .serializers import PropertySerializer, FavouriteSerializer, GetFavouriteSerializer, SimilarPropertySerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from django.db.models import Q
 
 class ApiProprtyHomePage(ListCreateAPIView):
     queryset = Property.objects.all()
@@ -67,10 +68,15 @@ class GetFavouriteProperty(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 
-class SimilarPropert(APIView):
+class SimilarProperty(APIView):
+
     def get(self, request, **kwargs):
         id = kwargs["id"]
         slug = kwargs["slug"]
+        print(id, slug)
         current_property = Property.objects.get(id=id, slug=slug)
-        serializer = PropertySerializer(current_property)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        city_id = current_property.city
+        similar_properties = Property.objects.filter(bedrooms=current_property.bedrooms) | Property.objects.filter(agent=current_property.agent.id) | Property.objects.filter(city=current_property.city)
+        serializer = SimilarPropertySerializer(similar_properties, many=True)
+        return Response({"Message":"Similar properties you may like",
+                         "Property details": serializer.data}, status=status.HTTP_200_OK)
