@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView
-from .models import Property
-from .serializers import PropertySerializer
+from .models import Property, Favourite
+from .serializers import PropertySerializer, FavouriteSerializer, GetFavouriteSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 class ApiProprtyHomePage(ListCreateAPIView):
     queryset = Property.objects.all()
@@ -42,3 +43,34 @@ class ApiPropertyDetailPage(APIView):
             {"Success": "House deleted successfuly!"},
             status=status.HTTP_NO_CONTENT
         )
+    
+
+class AddFavouriteProperty(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request, format=None):
+        serializer = FavouriteSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new = serializer.save()
+        return Response({
+            "Success": "Property has been successfully added",
+            "username": new["username"],
+            "title": new["property"]
+        }, status=status.HTTP_201_CREATED)
+    
+
+class GetFavouriteProperty(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, format=None):
+        user = request.user
+        all_favourites = Favourite.objects.filter(user=user)
+        serializer = GetFavouriteSerializer(all_favourites, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+class SimilarPropert(APIView):
+    def get(self, request, **kwargs):
+        id = kwargs["id"]
+        slug = kwargs["slug"]
+        current_property = Property.objects.get(id=id, slug=slug)
+        serializer = PropertySerializer(current_property)
+        return Response(serializer.data, status=status.HTTP_200_OK)

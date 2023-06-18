@@ -1,15 +1,51 @@
 from rest_framework import serializers
 from .models import Property, Favourite
-
+from users.models import User
 
 class FavouriteSerializer(serializers.Serializer):
-    property_name = serializers.CharField(max_length=100)
+    property_title = serializers.CharField(max_length=100)
+    username = serializers.CharField(max_length=100)
+
+    def validate(self, attrs):
+        username = attrs.get("username")
+        property = attrs.get("property_title")
+        if not Property.objects.filter(title=property):
+            raise ValueError({"Error": "That property title doesn't exist"})
+        
+        if not User.objects.get(username=username):
+            raise ValueError({"Message": "User not found"})
+        
+        return attrs
 
 
     def create(self, validated_data):
-        property = validated_data["property"]
-        get_property = Property.objects.filter(title=property).id
-        
+        property = validated_data["property_title"]
+        username = validated_data["username"]
+        get_property = Property.objects.get(title=property).id
+        user = User.objects.get(username=username)
+        new_favourite = Favourite.objects.create(user=user)
+        new_favourite.property.add(get_property)
+        payload = {
+            "property": property,
+            "username": username
+        }
+        return payload
+    
+
+class GetFavouriteSerializer(serializers.ModelSerializer):
+    property = serializers.SerializerMethodField("get_full_property_display")
+    class Meta:
+        model = Favourite
+
+        fields = ["property"]
+
+    
+    def get_full_property_display(self, obj):
+        return PropertySerializer(obj.property.all(), many=True).data
+
+    
+    
+    
 
 
 class PropertySerializer(serializers.ModelSerializer):
