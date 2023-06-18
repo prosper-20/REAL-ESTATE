@@ -1,5 +1,15 @@
 from rest_framework import serializers
-from .models import Property
+from .models import Property, Favourite
+
+
+class FavouriteSerializer(serializers.Serializer):
+    property_name = serializers.CharField(max_length=100)
+
+
+    def create(self, validated_data):
+        property = validated_data["property"]
+        get_property = Property.objects.filter(title=property).id
+        
 
 
 class PropertySerializer(serializers.ModelSerializer):

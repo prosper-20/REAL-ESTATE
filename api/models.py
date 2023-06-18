@@ -66,3 +66,14 @@ class Property(models.Model):
         return self.title
     
 
+
+class Favourite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    property = models.ManyToManyField(Property, blank=True)
+
+    def __str__(self):
+        return self.user.username
+    
+    
+    
+

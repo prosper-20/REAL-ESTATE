@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import City, State, PropertyTpe, Property
+from .models import City, State, PropertyTpe, Property, Favourite
+
+admin.site.register(Favourite)
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
