@@ -57,7 +57,7 @@ class PropertySerializer(serializers.ModelSerializer):
     price = serializers.SerializerMethodField("add_commas_to_price")
     class Meta:
         model = Property
-        fields = ["id", "title", "slug", "address", "city", "state", "sale_type", "picture", "type", "price", "agent"]
+        fields = ["id", "title", "slug", "address", "city", "state", "sale_type", "bedrooms", "picture", "type", "price", "agent"]
 
     
     def agent_username(self, obj):
