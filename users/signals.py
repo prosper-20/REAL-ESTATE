@@ -18,6 +18,11 @@ from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.tokens import default_token_generator
 
 from django.core.mail import EmailMessage
+from rest_framework.authtoken.models import Token
+@receiver(post_save, sender=User)
+def create_token(sender, instance, created, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
