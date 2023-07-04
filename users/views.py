@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import UserRegistrationSerializer
+from .serializers import UserRegistrationSerializer, AgentRegistrationSerializer
 from .models import User
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
@@ -22,6 +22,22 @@ class ApiUserRegistrationView(APIView):
                          "name": user.username,
                          "email": user.email,
                          "token":token}, status=status.HTTP_201_CREATED)
+    
+
+class ApiAgentRegistrationView(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request):
+        serializer = AgentRegistrationSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        token = Token.objects.get(user=user).key
+        return Response({
+            "Message": "Successfully registered as an agent",
+            "agent-name": user.username,
+            "agent-email": user.email,
+            "token": token
+        }, status=status.HTTP_201_CREATED)
+    
     
 
 class ConfirmEmailView(APIView):

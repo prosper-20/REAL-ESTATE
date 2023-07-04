@@ -18,6 +18,23 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
+    def create_agent(self, email, username, password=None):
+        """
+        Creates and saves a User with the given email and password.
+        """
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            email=self.normalize_email(email),
+            username=self.normalize_username(username)
+        )
+
+        user.set_password(password)
+        user.is_agent = True
+        user.save(using=self._db)
+        return user
+    
     def normalize_username(self, username):
         return (
             unicodedata.normalize("NFKC", username)
