@@ -4,9 +4,14 @@ from users.models import User
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField("get_review_user_username")
     class Meta:
         model = Review
-        fields = ["user", "property", "rating", "comments"]
+        fields = ["user", "rating", "comments"]
+
+    def get_review_user_username(self, obj):
+        user = User.objects.get(email=obj.user)
+        return user.username
 
 class FavouriteSerializer(serializers.Serializer):
     property_title = serializers.CharField(max_length=100)

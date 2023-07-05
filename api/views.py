@@ -138,13 +138,20 @@ class ApiPropertyDetailPage(APIView):
 
 
 class AddPropertyReview(ListCreateAPIView):
-    # queryset =  Review.objects.all()
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = ReviewSerializer
 
-    def get_queryset(self, **kwargs):
-        slug = kwargs.get("slug")
-        reviews = Review.objects.filter(property=Property.objects.get(slug=slug))
-        return reviews
+    def perform_create(self, serializer):
+        property_id = self.kwargs['id']
+        property = Property.objects.get(id=property_id)
+        serializer.save(user=self.request.user, property=property)
+        return super().perform_create(serializer)
+
+    
+    def get_queryset(self):
+        property_id = self.kwargs['id']
+        queryset = Review.objects.filter(property=property_id)
+        return queryset
     
 
 class AddFavouriteProperty(APIView):

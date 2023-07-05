@@ -1,11 +1,12 @@
 from django.urls import path
-from .views import ApiProprtyHomePage, ApiPropertyDetailPage, AddFavouriteProperty, GetFavouriteProperty,SimilarProperty, NewAddFavouriteProperty
+from .views import ApiProprtyHomePage, ApiPropertyDetailPage, AddFavouriteProperty, GetFavouriteProperty,SimilarProperty, NewAddFavouriteProperty, AddPropertyReview
 
 
 urlpatterns = [
     path("", ApiProprtyHomePage.as_view(), name="api-home"),
     # path("property/<slug:slug>/<uuid:id>/", ApiPropertyDetailPage.as_view(), name="api-property-detail"),
     path("property/<uuid:id>/", ApiPropertyDetailPage.as_view(), name="api-property-detail"),
+    path("property/<uuid:id>/reviews/", AddPropertyReview.as_view(), name="property-review"),
     path("property/<slug:slug>/", ApiPropertyDetailPage.as_view(), name="api-property-detail"),
     path("add-fave/", AddFavouriteProperty.as_view(), name="add-fave"),
     path("property/<slug:slug>/<uuid:id>/add-fave/", NewAddFavouriteProperty.as_view(), name="new-add-fave"),
