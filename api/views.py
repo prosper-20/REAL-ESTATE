@@ -5,19 +5,38 @@ from .serializers import PropertySerializer, FavouriteSerializer, GetFavouriteSe
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from django.db.models import Q
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.authentication import TokenAuthentication
+from .permissions import CanCreatePropertyPermission
 
-class ApiProprtyHomePage(ListCreateAPIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = Property.objects.all()
-    serializer_class = PropertySerializer
+# class ApiProprtyHomePage(ListCreateAPIView):
+#     queryset = Property.objects.all()
+#     serializer_class = PropertySerializer
+#     permission_classes = [CanCreatePropertyPermission, IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):
-        serializer.save(agent=self.request.user)
+#     def perform_create(self, serializer):
+#         serializer.save(agent=self.request.user)
+
+
+    
+class ApiProprtyHomePage(APIView):
+    def get(self, request, format=None):
+        queryset = Property.objects.all()
+        serializer = PropertySerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def post(self, request, format=None):
+        user = request.user
+        if user.is_agent == False:
+            return Response({"Error": "Only agents can post properties"})
+        print(user)
+        property = Property(agent=request.user)
+        serializer = PropertySerializer(property, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
 
 
 
