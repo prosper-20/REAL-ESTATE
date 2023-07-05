@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import City, State, PropertyTpe, Property, Favourite
+from .models import City, State, PropertyTpe, Property, Favourite, Review
 
 admin.site.register(Favourite)
 
@@ -29,4 +29,14 @@ class PropertyAdmin(admin.ModelAdmin):
     list_editable = ["price"]
     search_fields = ["title", "city__name", "agent__username"]
     list_filter = ["type", "agent"]
+
+
+
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ["user", "property", "rating"]
+    search_fields = ["property"]
+    list_filter= ["user", "property"]
+
+
+admin.site.register(Review, ReviewAdmin)
 

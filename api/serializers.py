@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from .models import Property, Favourite
+from .models import Property, Favourite, Review
 from users.models import User
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ["user", "property", "rating", "comments"]
 
 class FavouriteSerializer(serializers.Serializer):
     property_title = serializers.CharField(max_length=100)

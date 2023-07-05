@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView
-from .models import Property, Favourite
-from .serializers import PropertySerializer, FavouriteSerializer, GetFavouriteSerializer, SimilarPropertySerializer
+from .models import Property, Favourite, Review
+from .serializers import PropertySerializer, FavouriteSerializer, GetFavouriteSerializer, SimilarPropertySerializer, ReviewSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -136,7 +136,15 @@ class ApiPropertyDetailPage(APIView):
         return Response({"Success": "House has been deleted"}, status=status.HTTP_204_NO_CONTENT)
     
 
-        
+
+class AddPropertyReview(ListCreateAPIView):
+    # queryset =  Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    def get_queryset(self, **kwargs):
+        slug = kwargs.get("slug")
+        reviews = Review.objects.filter(property=Property.objects.get(slug=slug))
+        return reviews
     
 
 class AddFavouriteProperty(APIView):
