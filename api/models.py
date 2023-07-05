@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 import uuid
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 HOME_TYPE_CHOICES = (
@@ -73,6 +74,17 @@ class Favourite(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name="reviews")
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    comments = models.TextField()
+
+    def __str__(self):
+        return self.property.title
     
     
     

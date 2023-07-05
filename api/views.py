@@ -9,7 +9,8 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from django.db.models import Q
 from rest_framework.authentication import TokenAuthentication
 from .permissions import CanCreatePropertyPermission
-
+from rest_framework import serializers
+from django.contrib.auth.models import AnonymousUser
 # class ApiProprtyHomePage(ListCreateAPIView):
 #     queryset = Property.objects.all()
 #     serializer_class = PropertySerializer
@@ -29,7 +30,8 @@ class ApiProprtyHomePage(APIView):
     def post(self, request, format=None):
         user = request.user
         if user.is_agent == False:
-            return Response({"Error": "Only agents can post properties"})
+            return Response({"Error": "Only agents can post properties",
+                             "Agent sign up link": "http:127.0.0.1:8000/users/register/agent/"})
         print(user)
         property = Property(agent=request.user)
         serializer = PropertySerializer(property, data=request.data)
@@ -89,6 +91,51 @@ class ApiPropertyDetailPage(APIView):
             property = Property.objects.get(slug=slug, id=id)
         serializer = PropertySerializer(property)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def put(self, request, **kwargs):
+        slug = kwargs.get("slug")
+        id = kwargs.get("id")
+        current_user = request.user
+        print(current_user)
+        if slug and not id:
+            property = Property.objects.get(slug=slug)
+        elif id and not slug:
+            property = Property.objects.get(id=id)
+        elif id and slug:
+            property = Property.objects.get(slug=slug, id=id)
+        if current_user == AnonymousUser:
+            raise serializers.ValidationError({"Error": "You are not logged in"})
+        elif current_user != property.agent:
+            raise serializers.ValidationError({"Error": "You are not the agent of this property!!"})
+        
+        serializer = PropertySerializer(property, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        data = {"Message": "House details has been updated"}
+        data2 = dict(serializer.data)
+        data.update(data2)
+        return Response(data, status=status.HTTP_202_ACCEPTED)
+    
+    def delete(self, request, **kwargs):
+        slug = kwargs.get("slug")
+        id = kwargs.get("id")
+        current_user = request.user
+        print(current_user)
+        if slug and not id:
+            property = Property.objects.get(slug=slug)
+        elif id and not slug:
+            property = Property.objects.get(id=id)
+        elif id and slug:
+            property = Property.objects.get(slug=slug, id=id)
+        if current_user == AnonymousUser:
+            raise serializers.ValidationError({"Error": "You are not logged in"})
+        elif current_user != property.agent:
+            raise serializers.ValidationError({"Error": "You are not the agent of this property!!"})
+        
+        property.delete()
+        return Response({"Success": "House has been deleted"}, status=status.HTTP_204_NO_CONTENT)
+    
+
         
     
 
