@@ -9,12 +9,46 @@ from rest_framework.exceptions import PermissionDenied
 #         return False
 
 
+# class HasPhoneNumberPermission(BasePermission):
+#     message = {"You must complete your profile to create, view or accept tasks, click on this link: http://127.0.0.1:8000/users/profile/"}
+#     def has_permission(self, request, view):
+        
+#         check = bool(request.user.profile.phone_number)
+#         if check == False:
+#             raise PermissionDenied(detail=self.message)
+#         return bool(request.user.profile.phone_number)
+
+
+# class HasPropertyCreationPermission(BasePermission):
+#     message = {"You must be an agnet to posts properties, click on this link: http://127.0.0.1:8000/sign-up/agent"}
+#     def has_permission(self, request, view):
+
+#         check = bool(request.user.is_agent)
+#         if check == False:
+#             raise PermissionDenied(detail=self.message)
+#         return bool(request.user.is_agent)
+
+# class CanCreatePropertyPermission(BasePermission):
+#     message = {"You must be an agnet to posts properties, click on this link: http://127.0.0.1:8000/sign-up/agent"}
+#     def has_permission(self, request, view):
+#         if request.method == "POST":
+#             check = bool(request.user.is_agent)
+#             if check == False:
+#                 raise PermissionDenied(detail=self.message)
+            
+#             return bool(request.user.is_agent)
+        
+
+    
+#  CHATFPT OWN
 
 class CanCreatePropertyPermission(BasePermission):
-    message = {"You must complete your profile to create, view or accept tasks, click on this link: http://127.0.0.1:8000/users/profile/"}
-    def CanCreatePropertyPermission(self, request, view):
-        
-        check = bool(request.user.is_agent)
-        if check == False:
-            raise PermissionDenied(detail=self.message)
-        return bool(request.user.is_agent)
+    def has_permission(self, request, view):
+        if request.method == 'POST':
+            return request.user.is_authenticated and request.user.is_agent
+        return True
+
+    def has_object_permission(self, request, view, obj):
+        if request.method == 'POST':
+            return request.user.is_authenticated and request.user.is_agent
+        return True

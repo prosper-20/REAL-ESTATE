@@ -11,33 +11,44 @@ from rest_framework.authentication import TokenAuthentication
 from .permissions import CanCreatePropertyPermission
 from rest_framework import serializers
 from django.contrib.auth.models import AnonymousUser
-# class ApiProprtyHomePage(ListCreateAPIView):
-#     queryset = Property.objects.all()
-#     serializer_class = PropertySerializer
-#     permission_classes = [CanCreatePropertyPermission, IsAuthenticatedOrReadOnly]
+from rest_framework.filters import SearchFilter, OrderingFilter
 
-#     def perform_create(self, serializer):
-#         serializer.save(agent=self.request.user)
+
+class ApiProprtyHomePage(ListCreateAPIView):
+    ''' This view allows unauthenticated users to
+    view a list of vailable properties,and allows authenticated
+    users who are agents to upload properties.'''
+    
+    queryset = Property.objects.all()
+    serializer_class = PropertySerializer
+    search_fields = ["bedrooms", "city__name", "state__name", "sale_type"]
+    filter_backends = [SearchFilter, OrderingFilter]
+    permission_classes = [IsAuthenticatedOrReadOnly, CanCreatePropertyPermission]
+
+    def perform_create(self, serializer):
+        serializer.save(agent=self.request.user)
 
 
     
-class ApiProprtyHomePage(APIView):
-    def get(self, request, format=None):
-        queryset = Property.objects.all()
-        serializer = PropertySerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+# class ApiProprtyHomePage(APIView):
+#     search_fields = ["bedrooms", "city__name", "state__name", "sale_type"]
+#     filter_backends = [SearchFilter, OrderingFilter]
+#     def get(self, request, format=None):
+#         queryset = Property.objects.all()
+#         serializer = PropertySerializer(queryset, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
     
-    def post(self, request, format=None):
-        user = request.user
-        if user.is_agent == False:
-            return Response({"Error": "Only agents can post properties",
-                             "Agent sign up link": "http:127.0.0.1:8000/users/register/agent/"})
-        print(user)
-        property = Property(agent=request.user)
-        serializer = PropertySerializer(property, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     def post(self, request, format=None):
+#         user = request.user
+#         if user.is_agent == False:
+#             return Response({"Error": "Only agents can post properties",
+#                              "Agent sign up link": "http:127.0.0.1:8000/users/register/agent/"})
+#         print(user)
+#         property = Property(agent=request.user)
+#         serializer = PropertySerializer(property, data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 
 
@@ -76,6 +87,9 @@ class ApiProprtyHomePage(APIView):
 
 
 class ApiPropertyDetailPage(APIView):
+    '''This returns a single property at a time;
+    Alos allows users who are the owners of the property
+    to edit and delete their properties.'''
     def get(self, request, **kwargs):
         slug = kwargs.get("slug")
         id = kwargs.get("id")
@@ -138,6 +152,8 @@ class ApiPropertyDetailPage(APIView):
 
 
 class AddPropertyReview(ListCreateAPIView):
+    '''This view allows authenticated users to leave their
+    reviews about a property.'''
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = ReviewSerializer
 
@@ -186,6 +202,9 @@ class NewAddFavouriteProperty(APIView):
     
 
 class GetFavouriteProperty(APIView):
+    '''
+    Returns a list of properties that a user has registered as his/
+    her favourites.'''
     permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         user = request.user
@@ -195,7 +214,10 @@ class GetFavouriteProperty(APIView):
     
 
 class SimilarProperty(APIView):
-
+    '''
+        Returns a list of similar properties related
+        to the one the use is checking out.
+    '''
     def get(self, request, **kwargs):
         id = kwargs["id"]
         slug = kwargs["slug"]

@@ -55,5 +55,6 @@ class AgentRegistrationSerializer(serializers.ModelSerializer):
         
         user.set_password(password)
         user.is_agent = True
+        user.is_active = True
         user.save()
         return user
