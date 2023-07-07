@@ -240,3 +240,11 @@ class PropertyContactView(ListCreateAPIView):
         property_id = self.kwargs["id"]
         messages = Contact.objects.filter(property=property_id)
         return messages
+    
+    def perform_create(self, serializer):
+        property_id = self.kwargs["id"]
+        current_property = Property.objects.get(id=property_id)
+        agent = current_property.agent
+        serializer.save(property=current_property, agent=agent)
+        return super().perform_create(serializer)
+    

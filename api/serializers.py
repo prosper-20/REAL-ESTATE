@@ -6,7 +6,7 @@ from users.models import User
 class PropertyContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = ["property", "agent", "sender", "message"]
+        fields = ["sender", "message"]
 
 
 class ReviewSerializer(serializers.ModelSerializer):

@@ -43,6 +43,6 @@ admin.site.register(Review, ReviewAdmin)
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ["sender", "message"]
-    list_filter = ["agent"]
+    list_display = ["property", "agent","sender", "message"]
+    list_filter = ["property", "agent"]
 
