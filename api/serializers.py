@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from .models import Property, Favourite, Review
+from .models import Property, Favourite, Review, Contact
 from users.models import User
+
+
+class PropertyContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ["property", "agent", "sender", "message"]
 
 
 class ReviewSerializer(serializers.ModelSerializer):

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView
-from .models import Property, Favourite, Review
-from .serializers import PropertySerializer, FavouriteSerializer, GetFavouriteSerializer, SimilarPropertySerializer, ReviewSerializer
+from .models import Property, Favourite, Review, Contact
+from .serializers import PropertySerializer, FavouriteSerializer, GetFavouriteSerializer, SimilarPropertySerializer, ReviewSerializer, PropertyContactSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -228,3 +228,15 @@ class SimilarProperty(APIView):
         serializer = SimilarPropertySerializer(similar_properties, many=True)
         return Response({"Message":"Similar properties you may like",
                          "Property details": serializer.data}, status=status.HTTP_200_OK)
+    
+
+
+
+class PropertyContactView(ListCreateAPIView):
+    # queryset = Contact.objects.all()
+    serializer_class = PropertyContactSerializer
+
+    def get_queryset(self):
+        property_id = self.kwargs["id"]
+        messages = Contact.objects.filter(property=property_id)
+        return messages
