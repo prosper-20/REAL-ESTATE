@@ -86,6 +86,16 @@ class Review(models.Model):
     def __str__(self):
         return self.property.title
     
+
+class Contact(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name="contact_property")
+    agent = models.ForeignKey(User, on_delete=models.CASCADE, related_name="property_agent")
+    sender = models.CharField(max_length=100)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.sender
+    
     
     
 

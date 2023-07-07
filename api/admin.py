@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import City, State, PropertyTpe, Property, Favourite, Review
+from .models import City, State, PropertyTpe, Property, Favourite, Review, Contact
 
 admin.site.register(Favourite)
 
@@ -39,4 +39,10 @@ class ReviewAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Review, ReviewAdmin)
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ["sender", "message"]
+    list_filter = ["agent"]
 
