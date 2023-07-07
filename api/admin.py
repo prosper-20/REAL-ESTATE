@@ -43,6 +43,12 @@ admin.site.register(Review, ReviewAdmin)
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ["property", "agent","sender", "message"]
+    list_display = ["property", "agent", "get_agent_username", "sender", "message"]
     list_filter = ["property", "agent"]
+
+    def get_agent_username(self, obj):
+        # Define your custom method logic here
+        return obj.agent.username
+
+    get_agent_username.short_description = 'agent_username'
 
