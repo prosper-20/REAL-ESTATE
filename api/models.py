@@ -48,6 +48,8 @@ class Property(models.Model):
     id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
     title = models.CharField(max_length=100)
     address = models.TextField(blank=True, null=True)
+    description = models.TextField()
+    features = models.TextField()
     city = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True)
     state  = models.ForeignKey(State, on_delete=models.CASCADE, blank=True, null=True)
     price = models.DecimalField(max_digits=20, decimal_places=0, blank=True, null=True)
