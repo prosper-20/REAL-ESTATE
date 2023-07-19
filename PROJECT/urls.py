@@ -26,6 +26,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/", include("api.urls")),
+    path("", include("web.urls")),
     path("users/", include("users.urls")),
     path("api/auth/", ObtainAuthToken.as_view(), name="token"),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

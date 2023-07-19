@@ -4,6 +4,7 @@
 * Template URI: https://untree.co/
 * License: https://creativecommons.org/licenses/by/3.0/
 */ -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,12 +23,11 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="fonts/icomoon/style.css" />
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
-
-    <link rel="stylesheet" href="css/tiny-slider.css" />
-    <link rel="stylesheet" href="css/aos.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="{% static 'web/fonts/icomoon/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/fonts/flaticon/font/flaticon.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/tiny-slider.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/aos.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/style.css' %}" />
 
     <title>
       Property &mdash; Free Bootstrap 5 Website Template by Untree.co
@@ -90,15 +90,15 @@
       <div class="hero-slide">
         <div
           class="img overlay"
-          style="background-image: url('images/hero_bg_3.jpg')"
+          style="background-image: url('/web/static/web/images/hero_bg_1.jpg')"
         ></div>
         <div
           class="img overlay"
-          style="background-image: url('images/hero_bg_2.jpg')"
+          style="background-image: url('/web/static/web/images/hero_bg_1.jpg')"
         ></div>
         <div
           class="img overlay"
-          style="background-image: url('images/hero_bg_1.jpg')"
+          style="background-image: url('/web/static/web/images/hero_bg_1.jpg')"
         ></div>
       </div>
 
@@ -151,7 +151,7 @@
               <div class="property-slider">
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_1.jpg" alt="Image" class="img-fluid" />
+                    <img src="{% static 'web/images/img_1.jpg' %}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -185,7 +185,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_2.jpg" alt="Image" class="img-fluid" />
+                    <img src="{% static 'web/images/img_2.jpg' %}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -219,7 +219,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_3.jpg" alt="Image" class="img-fluid" />
+                    <img src="{% static 'web/images/img_3.jpg' %}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -253,7 +253,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_4.jpg" alt="Image" class="img-fluid" />
+                    <img src="{% static 'web/images/img_4.jpg' %}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -287,7 +287,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_5.jpg" alt="Image" class="img-fluid" />
+                    <img src="{% static 'web/images/img_5.jpg' %}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -321,7 +321,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_6.jpg" alt="Image" class="img-fluid" />
+                    <img src="{% static 'web/images/img_6.jpg' %}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -355,7 +355,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_7.jpg" alt="Image" class="img-fluid" />
+                    <img src="{% static 'web/images/img_7.jpg' %}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -389,7 +389,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_8.jpg" alt="Image" class="img-fluid" />
+                    <img src="{% static 'web/images/img_8.jpg' %}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -423,7 +423,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_1.jpg" alt="Image" class="img-fluid" />
+                    <img src="{% static 'web/images/img_1.jpg' %}" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -559,7 +559,7 @@
             <div class="item">
               <div class="testimonial">
                 <img
-                  src="images/person_1-min.jpg"
+                  src="{% static 'web/images/person_1-min.jpg' %}"
                   alt="Image"
                   class="img-fluid rounded-circle w-25 mb-4"
                 />
@@ -586,7 +586,7 @@
             <div class="item">
               <div class="testimonial">
                 <img
-                  src="images/person_2-min.jpg"
+                  src="{% static 'web/images/person_2-min.jpg' %}"
                   alt="Image"
                   class="img-fluid rounded-circle w-25 mb-4"
                 />
@@ -613,7 +613,7 @@
             <div class="item">
               <div class="testimonial">
                 <img
-                  src="images/person_3-min.jpg"
+                  src="{% static 'web/images/person_3-min.jpg' %}"
                   alt="Image"
                   class="img-fluid rounded-circle w-25 mb-4"
                 />
@@ -640,7 +640,7 @@
             <div class="item">
               <div class="testimonial">
                 <img
-                  src="images/person_4-min.jpg"
+                  src="{% static 'web/images/person_4-min.jpg' %}"
                   alt="Image"
                   class="img-fluid rounded-circle w-25 mb-4"
                 />
@@ -684,7 +684,7 @@
         <div class="row justify-content-between mb-5">
           <div class="col-lg-7 mb-5 mb-lg-0 order-lg-2">
             <div class="img-about dots">
-              <img src="images/hero_bg_3.jpg" alt="Image" class="img-fluid" />
+              <img src="{% static 'web/images/hero_bg_3.jpg' %}" alt="Image" class="img-fluid" />
             </div>
           </div>
           <div class="col-lg-4">
@@ -817,7 +817,7 @@
           <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
             <div class="h-100 person">
               <img
-                src="images/person_1-min.jpg"
+                src="{% static 'web/images/person_1-min.jpg' %}"
                 alt="Image"
                 class="img-fluid"
               />
@@ -851,7 +851,7 @@
           <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
             <div class="h-100 person">
               <img
-                src="images/person_2-min.jpg"
+                src="{% static 'web/images/person_2-min.jpg' %}"
                 alt="Image"
                 class="img-fluid"
               />
@@ -885,7 +885,7 @@
           <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
             <div class="h-100 person">
               <img
-                src="images/person_3-min.jpg"
+                src="{% static 'web/images/person_3-min.jpg' %}"
                 alt="Image"
                 class="img-fluid"
               />
@@ -1034,11 +1034,11 @@
       </div>
     </div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/navbar.js"></script>
-    <script src="js/counter.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="{% static 'web/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'web/js/tiny-slider.js' %}"></script>
+    <script src="{% static 'web/js/aos.js' %}"></script>
+    <script src="{% static 'web/js/navbar.js' %}"></script>
+    <script src="{% static 'web/js/counter.js' %}"></script>
+    <script src="{% static 'web/js/custom.js' %}"></script>
   </body>
 </html>
