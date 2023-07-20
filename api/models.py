@@ -56,10 +56,17 @@ class Property(models.Model):
     sale_type = models.CharField(choices=HOME_TYPE_CHOICES, max_length=10, blank=True, null=True)
     type = models.ForeignKey(PropertyTpe, on_delete=models.CASCADE, blank=True, null=True)
     bedrooms = models.IntegerField(blank=True, null=True)
+    bathrooms = models.IntegerField(blank=True, null=True)
     sqft = models.IntegerField(blank=True, null=True)
     picture = models.ImageField(upload_to="house_images", blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
     agent = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+    @property
+    def image_url(self):
+        if self.picture and hasattr(self.picture, 'url'):
+            return self.picture.url
 
 
     class Meta:
