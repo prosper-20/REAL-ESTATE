@@ -83,7 +83,7 @@ class Property(models.Model):
 # This is for the image resizing 
 
 class UploadedImage(models.Model):
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name="property_uploaded_image")
     original_image = models.ImageField(upload_to='house_uploads/')
     thumbnail_image = models.ImageField(upload_to='house_uploads/thumbnails/', blank=True)
     medium_image = models.ImageField(upload_to='house_uploads/medium/', blank=True)

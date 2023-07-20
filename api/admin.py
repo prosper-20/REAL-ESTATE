@@ -7,11 +7,11 @@ from .models import City, State, PropertyTpe, Property, Favourite, Review, Conta
 class UploadedImageAdmin(admin.ModelAdmin):
     list_display = ["get_property_name"]
 
-    def get_agent_username(self, obj):
+    def get_property_name(self, obj):
         # Define your custom method logic here
-        return obj.agent.username
+        return obj.property.title
 
-    get_agent_username.short_description = 'agent_username'
+    get_property_name.short_description = 'house_title'
 
 
 
