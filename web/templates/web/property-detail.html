@@ -4,6 +4,7 @@
 * Template URI: https://untree.co/
 * License: https://creativecommons.org/licenses/by/3.0/
 */ -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,7 +29,7 @@
     <link rel="stylesheet" href="{% static 'web/css/style.css' %}" />
 
     <title>
-      Property &mdash; {{ propert.title }}
+      Property &mdash; {{ property.title }}
     </title>
   </head>
   <body>
@@ -92,7 +93,7 @@
         <div class="row justify-content-center align-items-center">
           <div class="col-lg-9 text-center mt-5">
             <h1 class="heading" data-aos="fade-up">
-              5232 California AVE. 21BC
+              {{ property.title }}
             </h1>
 
             <nav
@@ -109,8 +110,11 @@
                   class="breadcrumb-item active text-white-50"
                   aria-current="page"
                 >
-                  5232 California AVE. 21BC
+                  {{ property.title }}
                 </li>
+                <li class="breadcrumb-item">
+                    <a href="properties.html">Agent: {{ property.agent.username|title }}</a>
+                  </li>
               </ol>
             </nav>
           </div>
@@ -124,19 +128,17 @@
           <div class="col-lg-7">
             <div class="img-property-slide-wrap">
               <div class="img-property-slide">
-                <img src="{% static 'web/images/img_1.jpg' %}" alt="Image" class="img-fluid" />
-                <img src="{% static 'web/images/img_2.jpg' %}" alt="Image" class="img-fluid" />
-                <img src="{% static 'web/images/img_3.jpg' %}" alt="Image" class="img-fluid" />
+                <img src="{{ property.picture.url }}" alt="Image" class="img-fluid" />
+                <img src="{{ property.picture.url }}" alt="Image" class="img-fluid" />
+                <img src="{{ property.picture.url }}" alt="Image" class="img-fluid" />
               </div>
             </div>
           </div>
           <div class="col-lg-4">
-            <h2 class="heading text-primary">5232 California Ave. 21BC</h2>
-            <p class="meta">California, United States</p>
+            <h2 class="heading text-primary">{{ property.title }}</h2>
+            <p class="meta">{{ property.address }}, {{ property.state }}</p>
             <p class="text-black-50">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
-              laborum quo quos omnis sed magnam id, ducimus saepe, debitis error
-              earum, iste dicta odio est sint dolorem magni animi tenetur.
+              {{ property.description }}
             </p>
             <p class="text-black-50">
               Perferendis eligendi reprehenderit, assumenda molestias nisi eius
@@ -292,11 +294,11 @@
       </div>
     </div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/navbar.js"></script>
-    <script src="js/counter.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="{% static 'web/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'web/js/tiny-slider.js' %}"></script>
+    <script src="{% static 'web/js/aos.js' %}"></script>
+    <script src="{% static 'web/js/navbar.js' %}"></script>
+    <script src="{% static 'web/js/counter.js' %}"></script>
+    <script src="{% static 'web/js/custom.js' %}"></script>
   </body>
 </html>

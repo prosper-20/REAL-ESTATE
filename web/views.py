@@ -17,7 +17,7 @@ class DetailPage(View):
         slug = kwargs["slug"]
 
         current_property = Property.objects.get(slug=slug)
-        return render(request, "web/propert-detail.html", {"property": current_property})
+        return render(request, "web/property-detail.html", {"property": current_property})
 
         
         

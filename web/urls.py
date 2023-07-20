@@ -4,5 +4,5 @@ from .views import HomePage, DetailPage
 
 urlpatterns = [
     path("", HomePage.as_view(), name="home"),
-    path("<slug:slug>/", DetailPage.as_view(), name="detail")
+    path("properties/<slug:slug>/", DetailPage.as_view(), name="detail")
 ]

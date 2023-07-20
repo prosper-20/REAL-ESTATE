@@ -151,7 +151,7 @@
               <div class="property-slider">
                 {% for property in properties %}
                 <div class="property-item">
-                  <a href="property-single.html" class="img">
+                  <a href="{{ property.get_absolute_url }}" class="img">
                     <img src="{{ property.image_url|default_if_none:'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAIEAgQMBIgACEQEDEQH/xAAbAAEBAAMBAQEAAAAAAAAAAAAABQEDBAIGB//EADEQAQACAQIFAgMFCQAAAAAAAAABAgMEEQUSITFRE2EiQXEUNFKx0SMzYnKBgpGh8P/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD9EAAAAAAeMvqcv7Ll5v4oewGvD6vX1Zr7bNgAAAAAEhIAAAAAADMRMztHWWFHheGOW2aY677QDXi4dkvETktGP223luw8OpWd8tufxEdHcA0zpNPMbelVyZ+HfPBb+2f1UQEC1bUtNbxMWjvEvKxr8MZcE22+OkbxPsjgAAEhIAAAAAACzw+NtJT33/NGVeF5ObBNJ71np9P+3B2AAAAW61nfw+e8ruov6eDJfxHRCgAAAkJAAAAAAAXNJt9mx8sdOWENR4bqKxj9G9trc3wR53BQAAAB5y0rkx2reN6oG+6zrs1cWC8c0c9o2iN+vVGjoAAASEgAAAAAAMxM1mJjvE7wwT2BfxZIy463jtMPTl4ZExpI3+dpdQBvt1nsNOt+6ZdvAJWqy+tnteO3aPo0kdgAAAkJAAAAAHvHjvlnbHSbT7OzDw207TmvER4r1BwOjT6PLm67TWn4phTxaTBi61xxM+bdW4HnFSMWOtK9oegAYtEWrNZ7TG0sgJGp0OTFvanx0/3Dl+r6Fqy6bDl63pEz5jpIIjCjm4b88N/6W/VxZcOXFO2Sk1/IGskJAAAdOh032jJPPvyV7+/s5ljh9OTS182+IHRWsVrFaxERHyiGQAAAAAAAAAJiJjaY3jwAJfENLGKYyY42radpjxLild1NPU0+SnmOiDIMgAzEc0xEfPov0rFKRWO0Rsi6KvPqscbdInf/AAtgAAAAAAAAAAAAIOop6ee9PFpXkjidOXU7/ijcHKADr4b96j+WVcAAAAAAAAAAAAAEzi37zH9JAHCAD//Z' }}" alt="Image" class="img-fluid" />
                   </a>
 
@@ -175,7 +175,7 @@
                       </div>
 
                       <a
-                        href="property-single.html"
+                        href="{{ property.get_absolute_url }}"
                         class="btn btn-primary py-2 px-3"
                         >See details</a
                       >
