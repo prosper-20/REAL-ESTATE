@@ -43,39 +43,7 @@ class PropertyTpe(models.Model):
     def __str__(self):
         return self.name
 
-# This is for the image resizing 
 
-class UploadedImage(models.Model):
-    original_image = models.ImageField(upload_to='uploads/')
-    thumbnail_image = models.ImageField(upload_to='uploads/thumbnails/', blank=True)
-    medium_image = models.ImageField(upload_to='uploads/medium/', blank=True)
-    large_image = models.ImageField(upload_to='uploads/large/', blank=True)
-
-
-    def save(self, *args, **kwargs):
-        super(UploadedImage, self).save(*args, **kwargs)
-
-        if self.original_image:
-            # Open the original image
-            original_image = Image.open(self.original_image.path)
-
-            # Resize the image to create the thumbnail version
-            thumbnail_size = (100, 100)
-            thumbnail_image = original_image.copy()
-            thumbnail_image.thumbnail(thumbnail_size)
-            thumbnail_image.save(self.thumbnail_image.path)
-
-            # Resize the image to create the medium version
-            medium_size = (300, 300)
-            medium_image = original_image.copy()
-            medium_image.thumbnail(medium_size)
-            medium_image.save(self.medium_image.path)
-
-            # Resize the image to create the large version
-            large_size = (800, 800)
-            large_image = original_image.copy()
-            large_image.thumbnail(large_size)
-            large_image.save(self.large_image.path)
 
 
 class Property(models.Model):
@@ -111,6 +79,41 @@ class Property(models.Model):
 
     def __str__(self):
         return self.title
+    
+# This is for the image resizing 
+
+class UploadedImage(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    original_image = models.ImageField(upload_to='house_uploads/')
+    thumbnail_image = models.ImageField(upload_to='house_uploads/thumbnails/', blank=True)
+    medium_image = models.ImageField(upload_to='house_uploads/medium/', blank=True)
+    large_image = models.ImageField(upload_to='house_uploads/large/', blank=True)
+
+
+    def save(self, *args, **kwargs):
+        super(UploadedImage, self).save(*args, **kwargs)
+
+        if self.original_image:
+            # Open the original image
+            original_image = Image.open(self.original_image.path)
+
+            # Resize the image to create the thumbnail version
+            thumbnail_size = (100, 100)
+            thumbnail_image = original_image.copy()
+            thumbnail_image.thumbnail(thumbnail_size)
+            thumbnail_image.save(self.thumbnail_image.path)
+
+            # Resize the image to create the medium version
+            medium_size = (500, 500)
+            medium_image = original_image.copy()
+            medium_image.thumbnail(medium_size)
+            medium_image.save(self.medium_image.path)
+
+            # Resize the image to create the large version
+            large_size = (800, 800)
+            large_image = original_image.copy()
+            large_image.thumbnail(large_size)
+            large_image.save(self.large_image.path)
     
 
 

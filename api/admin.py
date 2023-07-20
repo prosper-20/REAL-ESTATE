@@ -1,5 +1,20 @@
 from django.contrib import admin
-from .models import City, State, PropertyTpe, Property, Favourite, Review, Contact
+from .models import City, State, PropertyTpe, Property, Favourite, Review, Contact, UploadedImage
+
+
+
+@admin.register(UploadedImage)
+class UploadedImageAdmin(admin.ModelAdmin):
+    list_display = ["get_property_name"]
+
+    def get_agent_username(self, obj):
+        # Define your custom method logic here
+        return obj.agent.username
+
+    get_agent_username.short_description = 'agent_username'
+
+
+
 
 admin.site.register(Favourite)
 
