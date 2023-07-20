@@ -21,16 +21,14 @@
       href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="fonts/icomoon/style.css" />
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
-
-    <link rel="stylesheet" href="css/tiny-slider.css" />
-    <link rel="stylesheet" href="css/aos.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="{% static 'web/fonts/icomoon/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/fonts/flaticon/font/flaticon.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/tiny-slider.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/aos.css' %}" />
+    <link rel="stylesheet" href="{% static 'web/css/style.css' %}" />
 
     <title>
-      Property &mdash; Free Bootstrap 5 Website Template by Untree.co
+      Property &mdash; {{ propert.title }}
     </title>
   </head>
   <body>
@@ -126,9 +124,9 @@
           <div class="col-lg-7">
             <div class="img-property-slide-wrap">
               <div class="img-property-slide">
-                <img src="images/img_1.jpg" alt="Image" class="img-fluid" />
-                <img src="images/img_2.jpg" alt="Image" class="img-fluid" />
-                <img src="images/img_3.jpg" alt="Image" class="img-fluid" />
+                <img src="{% static 'web/images/img_1.jpg' %}" alt="Image" class="img-fluid" />
+                <img src="{% static 'web/images/img_2.jpg' %}" alt="Image" class="img-fluid" />
+                <img src="{% static 'web/images/img_3.jpg' %}" alt="Image" class="img-fluid" />
               </div>
             </div>
           </div>
@@ -150,7 +148,7 @@
             <div class="d-block agent-box p-5">
               <div class="img mb-4">
                 <img
-                  src="images/person_2-min.jpg"
+                  src="{% static 'web/images/person_2-min.jpg' %}"
                   alt="Image"
                   class="img-fluid"
                 />
@@ -274,14 +272,11 @@
               <script>
                 document.write(new Date().getFullYear());
               </script>
-              . All Rights Reserved. &mdash; Designed with love by
+              . All Rights Reserved. &mdash; Designed by Prosper
               <a href="https://untree.co">Untree.co</a>
               <!-- License information: https://untree.co/license/ -->
             </p>
-            <div>
-              Distributed by
-              <a href="https://themewagon.com/" target="_blank">themewagon</a>
-            </div>
+           
           </div>
         </div>
       </div>
