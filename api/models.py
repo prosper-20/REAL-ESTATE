@@ -44,47 +44,7 @@ class PropertyTpe(models.Model):
         return self.name
 
 
-
-
-class Property(models.Model):
-    id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
-    title = models.CharField(max_length=100)
-    address = models.TextField(blank=True, null=True)
-    description = models.TextField()
-    features = models.TextField()
-    city = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True)
-    state  = models.ForeignKey(State, on_delete=models.CASCADE, blank=True, null=True)
-    price = models.DecimalField(max_digits=20, decimal_places=0, blank=True, null=True)
-    sale_type = models.CharField(choices=HOME_TYPE_CHOICES, max_length=10, blank=True, null=True)
-    type = models.ForeignKey(PropertyTpe, on_delete=models.CASCADE, blank=True, null=True)
-    bedrooms = models.IntegerField(blank=True, null=True)
-    bathrooms = models.IntegerField(blank=True, null=True)
-    sqft = models.IntegerField(blank=True, null=True)
-    picture = models.ImageField(upload_to="house_images", blank=True, null=True)
-    slug = models.SlugField(blank=True, null=True)
-    agent = models.ForeignKey(User, on_delete=models.CASCADE)
-    
-
-    def get_absolute_url(self):
-        return reverse("detail", kwargs={"slug": self.slug})
-
-
-    @property
-    def image_url(self):
-        if self.picture and hasattr(self.picture, 'url'):
-            return self.picture.url
-
-
-    class Meta:
-        verbose_name_plural = "Properties"
-
-    def __str__(self):
-        return self.title
-    
-# This is for the image resizing 
-
 class UploadedImage(models.Model):
-    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name="property_uploaded_image")
     original_image = models.ImageField(upload_to='house_uploads/')
     thumbnail_image = models.ImageField(upload_to='house_uploads/thumbnails/', blank=True)
     medium_image = models.ImageField(upload_to='house_uploads/medium/', blank=True)
@@ -115,6 +75,47 @@ class UploadedImage(models.Model):
             large_image = original_image.copy()
             large_image.thumbnail(large_size)
             large_image.save(self.large_image.path)
+
+
+class Property(models.Model):
+    id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
+    title = models.CharField(max_length=100)
+    address = models.TextField(blank=True, null=True)
+    description = models.TextField()
+    features = models.TextField()
+    city = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True)
+    state  = models.ForeignKey(State, on_delete=models.CASCADE, blank=True, null=True)
+    price = models.DecimalField(max_digits=20, decimal_places=0, blank=True, null=True)
+    sale_type = models.CharField(choices=HOME_TYPE_CHOICES, max_length=10, blank=True, null=True)
+    type = models.ForeignKey(PropertyTpe, on_delete=models.CASCADE, blank=True, null=True)
+    bedrooms = models.IntegerField(blank=True, null=True)
+    bathrooms = models.IntegerField(blank=True, null=True)
+    sqft = models.IntegerField(blank=True, null=True)
+    picture = models.ImageField(upload_to="house_images", blank=True, null=True)
+    # home_page_image = models.ForeignKey(UploadedImage, on_delete=models.CASCADE, default=1)
+    slug = models.SlugField(blank=True, null=True)
+    agent = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+
+    def get_absolute_url(self):
+        return reverse("detail", kwargs={"slug": self.slug})
+
+
+    @property
+    def image_url(self):
+        if self.picture and hasattr(self.picture, 'url'):
+            return self.picture.url
+
+
+    class Meta:
+        verbose_name_plural = "Properties"
+
+    def __str__(self):
+        return self.title
+    
+# This is for the image resizing 
+
+
     
 
 

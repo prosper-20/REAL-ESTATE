@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from api.models import Property, UploadedImage
+from api.models import Property
 
 class HomePage(View):
     def get(self, request):

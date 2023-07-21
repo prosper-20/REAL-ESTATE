@@ -1,17 +1,17 @@
 from django.contrib import admin
-from .models import City, State, PropertyTpe, Property, Favourite, Review, Contact, UploadedImage
+from .models import City, State, PropertyTpe, Property, Favourite, Review, Contact
 
 
 
-@admin.register(UploadedImage)
-class UploadedImageAdmin(admin.ModelAdmin):
-    list_display = ["get_property_name"]
+# @admin.register(UploadedImage)
+# class UploadedImageAdmin(admin.ModelAdmin):
+#     list_display = ["get_property_name"]
 
-    def get_property_name(self, obj):
-        # Define your custom method logic here
-        return obj.property.title
+#     def get_property_name(self, obj):
+#         # Define your custom method logic here
+#         return obj.property.title
 
-    get_property_name.short_description = 'house_title'
+#     get_property_name.short_description = 'house_title'
 
 
 
