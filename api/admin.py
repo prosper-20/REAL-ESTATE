@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import City, State, PropertyTpe, Property, Favourite, Review, Contact
+from .models import City, State, PropertyTpe, Property, Favourite, Review, Contact, UploadedImage
 
 
 
-# @admin.register(UploadedImage)
+admin.site.register(UploadedImage)
 # class UploadedImageAdmin(admin.ModelAdmin):
 #     list_display = ["get_property_name"]
 

@@ -92,7 +92,7 @@ class Property(models.Model):
     bathrooms = models.IntegerField(blank=True, null=True)
     sqft = models.IntegerField(blank=True, null=True)
     picture = models.ImageField(upload_to="house_images", blank=True, null=True)
-    # home_page_image = models.ForeignKey(UploadedImage, on_delete=models.CASCADE, default=1)
+    home_page_image = models.ForeignKey(UploadedImage, on_delete=models.CASCADE)
     slug = models.SlugField(blank=True, null=True)
     agent = models.ForeignKey(User, on_delete=models.CASCADE)
     
