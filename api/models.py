@@ -63,6 +63,7 @@ class Property(models.Model):
     picture = models.ImageField(upload_to="house_images", blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
     agent = models.ForeignKey(User, on_delete=models.CASCADE)
+    
 
     def get_absolute_url(self):
         return reverse("detail", kwargs={"slug": self.slug})
